@@ -23,7 +23,16 @@ export default {
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
+				'background-light': 'hsl(var(--background-light))',
 				foreground: 'hsl(var(--foreground))',
+				'foreground-light': 'hsl(var(--foreground-light))',
+				
+				/* Cores Institucionais LABIND */
+				'labind-primary-dark': 'hsl(var(--labind-primary-dark))',
+				'labind-primary-medium': 'hsl(var(--labind-primary-medium))',
+				'labind-accent-red': 'hsl(var(--labind-accent-red))',
+				'labind-accent-red-dark': 'hsl(var(--labind-accent-red-dark))',
+				
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
@@ -62,6 +71,10 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			fontFamily: {
+				'sans': ['Inter', 'Roboto', 'Open Sans', 'system-ui', 'sans-serif'],
+				'heading': ['Montserrat', 'Roboto', 'system-ui', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

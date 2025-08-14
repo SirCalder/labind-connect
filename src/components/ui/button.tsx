@@ -18,6 +18,12 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        
+        /* LABIND Custom Variants */
+        "labind-primary": "bg-labind-primary-dark text-white hover:bg-labind-primary-dark/90 font-semibold",
+        "labind-secondary": "bg-labind-primary-medium text-white hover:bg-labind-primary-medium/90 font-semibold",
+        "labind-accent": "bg-labind-accent-red text-white hover:bg-labind-accent-red-dark font-semibold",
+        "labind-outline": "border-2 border-labind-primary-medium text-labind-primary-medium bg-transparent hover:bg-labind-primary-medium hover:text-white",
       },
       size: {
         default: "h-10 px-4 py-2",
