@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import projectChatbot from "@/assets/Leds.jpg";
 import projectLEO from "@/assets/LeoRover.jpeg";
 import ProjectVr from "@/assets/MetaVr.jpeg";
+import ProjectLuva from "@/assets/Luva.jpeg"; // Assuming you have an image for the Luva project
 const FeaturedProjects = () => {
   const projects = [
     {
@@ -32,7 +33,16 @@ const FeaturedProjects = () => {
       image: ProjectVr,
       status: "Concluído",
       category: "Teleoperação VR",
-      technologies: ["Unity", "ROS2", "Gestos VR"]
+      technologies: ["Unity", "ROS2", "Gestos VR", "Teleoperação"]
+    },
+    {
+      id: 4,
+      title: "Luva Hiwonder para Controle de Robôs",
+      description: "Código em arduino que possibilita o controle do robô Leo Rover com a gesticulação dos dedos com a luva Hiwonder.",
+      image: projectLEO,
+      status: "Em Andamento",
+      category: "Utilização de uma Luva Hiwonder para Controle de Robôs",
+      technologies: ["Arduino", "Hiwonder", "Robótica", "Controle de Robôs"]
     }
   ];
 
