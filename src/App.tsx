@@ -18,7 +18,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename="/labind-connect"> 
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/projetos" element={<Projetos />} />
@@ -26,7 +26,6 @@ const App = () => (
           <Route path="/publicacoes" element={<Publicacoes />} />
           <Route path="/noticias" element={<Noticias />} />
           <Route path="/contato" element={<Contato />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

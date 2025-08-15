@@ -2,38 +2,37 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import projectAI from "@/assets/project-ai.jpg";
-import projectEmbedded from "@/assets/project-embedded.jpg";
-import projectAutomation from "@/assets/project-automation.jpg";
-
+import projectChatbot from "@/assets/Leds.jpg";
+import projectLEO from "@/assets/LeoRover.jpeg";
+import ProjectVr from "@/assets/MetaVr.jpeg";
 const FeaturedProjects = () => {
   const projects = [
     {
       id: 1,
-      title: "Inteligência Artificial Aplicada",
-      description: "Desenvolvimento de algoritmos de IA para otimização de processos industriais e manutenção preditiva.",
-      image: projectAI,
+      title: "AstroNAOta Chatbot",
+      description: "Integração do robô NAO com a API do Gemini e ASR local (Vosk) para um guia de astronomia infantil.",
+      image: projectChatbot,
       status: "Em Andamento",
-      category: "Inteligência Artificial",
-      technologies: ["Python", "TensorFlow", "IoT"]
+      category: "Interação Humano-Robô",
+      technologies: ["Python", "NAOqi", "Gemini API", "Vosk"]
     },
     {
       id: 2,
-      title: "Sistemas Embarcados",
-      description: "Criação de soluções embarcadas para controle e monitoramento de equipamentos industriais.",
-      image: projectEmbedded,
+      title: "MuseuRover: Controle Remoto e Live Feed para Leo Rover",
+      description: "Esta aplicação oferece uma interface completa para controlar um Leo Rover remotamente, combinando o uso de um controle joystick para movimentação intuitiva e um live feed da câmera para navegação visual. Desenvolvido para facilitar visitas remotas a museus ou qualquer ambiente, ele proporciona uma experiência imersiva ao usuário.",
+      image: projectLEO,
       status: "Concluído",
-      category: "Sistemas Embarcados",
-      technologies: ["C++", "Arduino", "ESP32"]
+      category: "Robótica Móvel",
+      technologies: ["Python", "Teleop", "ROS"]
     },
     {
       id: 3,
-      title: "Automação Industrial",
-      description: "Implementação de sistemas de automação para aumentar a eficiência de linhas de produção.",
-      image: projectAutomation,
-      status: "Em Andamento", 
-      category: "Automação",
-      technologies: ["PLC", "SCADA", "Modbus"]
+      title: "VR Gesture Teleop",
+      description: "Teleoperação via gestos em realidade virtual. O repositório conecta um projeto Unity que capta gestos VR a um módulo ROS2 que recebe e processa esses dados.",
+      image: ProjectVr,
+      status: "Concluído",
+      category: "Teleoperação VR",
+      technologies: ["Unity", "ROS2", "Gestos VR"]
     }
   ];
 
@@ -45,7 +44,7 @@ const FeaturedProjects = () => {
             Projetos em Destaque
           </h2>
           <p className="text-lg text-foreground-light max-w-2xl mx-auto">
-            Conheça alguns dos nossos principais projetos de pesquisa e desenvolvimento 
+            Conheça alguns dos nossos principais projetos de pesquisa e desenvolvimento
             em informática industrial
           </p>
         </div>
@@ -54,13 +53,13 @@ const FeaturedProjects = () => {
           {projects.map((project) => (
             <Card key={project.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
               <div className="relative">
-                <img 
-                  src={project.image} 
+                <img
+                  src={project.image}
                   alt={project.title}
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute top-4 left-4">
-                  <Badge 
+                  <Badge
                     variant={project.status === "Em Andamento" ? "destructive" : "secondary"}
                     className={project.status === "Em Andamento" ? "bg-labind-accent-red" : "bg-labind-primary-medium"}
                   >
@@ -68,7 +67,7 @@ const FeaturedProjects = () => {
                   </Badge>
                 </div>
               </div>
-              
+
               <CardHeader>
                 <div className="flex justify-between items-start mb-2">
                   <Badge variant="outline" className="text-xs">
@@ -80,7 +79,7 @@ const FeaturedProjects = () => {
                   {project.description}
                 </CardDescription>
               </CardHeader>
-              
+
               <CardContent>
                 <div className="mb-4">
                   <div className="flex flex-wrap gap-2">
@@ -91,10 +90,10 @@ const FeaturedProjects = () => {
                     ))}
                   </div>
                 </div>
-                
-                <Button 
-                  asChild 
-                  variant="labind-secondary" 
+
+                <Button
+                  asChild
+                  variant="labind-secondary"
                   className="w-full"
                 >
                   <Link to={`/projetos/${project.id}`}>Ver Detalhes</Link>
@@ -105,9 +104,9 @@ const FeaturedProjects = () => {
         </div>
 
         <div className="text-center">
-          <Button 
-            asChild 
-            variant="labind-outline" 
+          <Button
+            asChild
+            variant="labind-outline"
             size="lg"
             className="text-lg px-8 py-4 h-auto"
           >
