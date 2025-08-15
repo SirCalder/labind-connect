@@ -2,39 +2,37 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import projectAI from "@/assets/project-ai.jpg";
-import projectAutomation from "@/assets/project-automation.jpg";
 import projectChatbot from "@/assets/Leds.jpg";
-
-
+import projectLEO from "@/assets/LeoRover.jpeg";
+import ProjectVr from "@/assets/MetaVr.jpeg";
 const FeaturedProjects = () => {
   const projects = [
     {
       id: 1,
       title: "AstroNAOta Chatbot",
       description: "Integração do robô NAO com a API do Gemini e ASR local (Vosk) para um guia de astronomia infantil.",
-      image: projectChatbot, // Usando uma imagem de placeholder
+      image: projectChatbot,
       status: "Em Andamento",
       category: "Interação Humano-Robô",
       technologies: ["Python", "NAOqi", "Gemini API", "Vosk"]
     },
     {
       id: 2,
-      title: "Inteligência Artificial Aplicada",
-      description: "Desenvolvimento de algoritmos de IA para otimização de processos industriais e manutenção preditiva.",
-      image: projectAI,
-      status: "Em Andamento",
-      category: "Inteligência Artificial",
-      technologies: ["Python", "TensorFlow", "IoT"]
+      title: "MuseuRover: Controle Remoto e Live Feed para Leo Rover",
+      description: "Esta aplicação oferece uma interface completa para controlar um Leo Rover remotamente, combinando o uso de um controle joystick para movimentação intuitiva e um live feed da câmera para navegação visual. Desenvolvido para facilitar visitas remotas a museus ou qualquer ambiente, ele proporciona uma experiência imersiva ao usuário.",
+      image: projectLEO,
+      status: "Concluído",
+      category: "Robótica Móvel",
+      technologies: ["Python", "Teleop", "ROS"]
     },
     {
       id: 3,
-      title: "Automação Industrial",
-      description: "Implementação de sistemas de automação para aumentar a eficiência de linhas de produção.",
-      image: projectAutomation,
+      title: "VR Gesture Teleop",
+      description: "Teleoperação via gestos em realidade virtual. O repositório conecta um projeto Unity que capta gestos VR a um módulo ROS2 que recebe e processa esses dados.",
+      image: ProjectVr,
       status: "Concluído",
-      category: "Automação",
-      technologies: ["PLC", "SCADA", "Modbus"]
+      category: "Teleoperação VR",
+      technologies: ["Unity", "ROS2", "Gestos VR"]
     }
   ];
 
