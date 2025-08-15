@@ -35,18 +35,6 @@ const FeaturedProjects = () => {
       category: "Teleoperação VR",
       technologies: ["Unity", "ROS2", "Gestos VR", "Teleoperação"]
     },
-    {
-      id: 4,
-      title: "Luva Hiwonder para Controle de Robôs",
-      description: "Código em arduino que possibilita o controle do robô Leo Rover com a gesticulação dos dedos com a luva Hiwonder.",
-      image: projectLEO,
-      status: "Em Andamento",
-      category: "Utilização de uma Luva Hiwonder para Controle de Robôs",
-      technologies: ["Arduino", "Hiwonder", "Robótica", "Controle de Robôs"]
-      technologies: ["Unity", "ROS2", "Gestos VR"]
-   
-    },
-
     { id: 4,
       title: "luva-leorover-controle",
       description: "Código em arduino que possibilita o controle do robô Leo Rover com a gesticulação dos dedos com a luva Hiwonder.",
