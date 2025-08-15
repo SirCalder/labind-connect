@@ -5,9 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import projectAI from "@/assets/project-ai.jpg";
-import projectEmbedded from "@/assets/project-embedded.jpg";
-import projectAutomation from "@/assets/project-automation.jpg";
+import projectChatbot from "@/assets/Leds.jpg";
+import projectLEO from "@/assets/LeoRover.jpeg";
+import ProjectVr from "@/assets/MetaVr.jpeg";
 
 // ...existing code...
 const projects = [
@@ -15,7 +15,7 @@ const projects = [
     id: 1,
     title: "Inteligência Artificial Aplicada",
     description: "Desenvolvimento de algoritmos de IA para otimização de processos industriais e manutenção preditiva.",
-    image: projectAI,
+    image: projectChatbot,
     status: "Em Andamento",
     category: "Inteligência Artificial",
     technologies: ["Python", "TensorFlow", "IoT"],
@@ -25,7 +25,7 @@ const projects = [
     id: 2,
     title: "Sistemas Embarcados",
     description: "Criação de soluções embarcadas para controle e monitoramento de equipamentos industriais.",
-    image: projectEmbedded,
+    image: projectLEO,
     status: "Concluído",
     category: "Sistemas Embarcados",
     technologies: ["C++", "Arduino", "ESP32"],
@@ -35,7 +35,7 @@ const projects = [
     id: 3,
     title: "Automação Industrial",
     description: "Implementação de sistemas de automação para aumentar a eficiência de linhas de produção.",
-    image: projectAutomation,
+    image: ProjectVr,
     status: "Em Andamento",
     category: "Automação",
     technologies: ["PLC", "SCADA", "Modbus"],
