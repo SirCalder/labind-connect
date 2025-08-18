@@ -17,12 +17,12 @@ const AboutSection = () => {
     {
       icon: Users,
       title: "Formação",
-      description: "Capacitamos estudantes e profissionais para o mercado de informática industrial"
+      description: "Capacitamos estudantes e profissionais para o mercado do meio da tecnologia"
     },
     {
       icon: Target,
       title: "Resultados",
-      description: "Entregamos projetos com impacto real na eficiência e produtividade industrial"
+      description: "Entregamos projetos com impacto real "
     }
   ];
 
@@ -35,8 +35,9 @@ const AboutSection = () => {
           </h2>
           <p className="text-lg text-foreground-light max-w-3xl mx-auto leading-relaxed">
             O LABIND é um centro de excelência em pesquisa e desenvolvimento localizado na UDESC CEPLAN. 
-            Nossa missão é promover a inovação tecnológica através de projetos de pesquisa aplicada, 
-            formação de recursos humanos qualificados e parcerias estratégicas com a indústria.
+            Nossa missão é promover a inovação tecnológica através de projetos de pesquisa, ensino e extensão,
+            capacitando estudantes e profissionais para enfrentar os desafios das tecnologias modernas.
+            
           </p>
         </div>
 

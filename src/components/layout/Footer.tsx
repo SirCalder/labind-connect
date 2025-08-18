@@ -29,9 +29,8 @@ const Footer = () => {
             <div>
               <h3 className="font-semibold text-lg mb-2">Laboratório de Informática Industrial</h3>
               <p className="text-gray-300 text-sm leading-relaxed">
-                Desenvolvemos tecnologias inovadoras para a indústria através de pesquisa aplicada, 
-                formação de talentos e parcerias estratégicas, contribuindo para o avanço 
-                tecnológico do setor industrial catarinense.
+                Desenvolvemos tecnologias inovadoras para a indústria através de projetos no ambito da pesquisa,
+                ensino e extensão. Nossa missão é capacitar e formar profissionais para o mercado do meio da tecnologia.
               </p>
             </div>
           </div>
@@ -59,9 +58,9 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin size={18} className="text-labind-primary-medium mt-0.5 flex-shrink-0" />
                 <div className="text-gray-300 text-sm">
-                  <p>Av. Luís de Camões, 2090</p>
-                  <p>Conta Dinheiro, Lages - SC</p>
-                  <p>CEP: 88520-000</p>
+                  <p>R. Luiz Fernando Hastreiter, 180</p>
+                  <p>Centenário, São Bento do Sul - SC</p>
+                  <p>CEP: 89283-081</p>
                 </div>
               </div>
               
