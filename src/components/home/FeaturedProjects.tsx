@@ -1,50 +1,17 @@
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import projectChatbot from "@/assets/Leds.jpg";
-import projectLEO from "@/assets/LeoRover.jpeg";
-import ProjectVr from "@/assets/MetaVr.jpeg";
-import ProjectLuva from "@/assets/Luva.jpeg"; // Assuming you have an image for the Luva project
-const FeaturedProjects = () => {
-  const projects = [
-    {
-      id: 1,
-      title: "AstroNAOta Chatbot",
-      description: "Integração do robô NAO com a API do Gemini e ASR local (Vosk) para um guia de astronomia infantil.",
-      image: projectChatbot,
-      status: "Em Andamento",
-      category: "Interação Humano-Robô",
-      technologies: ["Python", "NAOqi", "Gemini API", "Vosk"]
-    },
-    {
-      id: 2,
-      title: "MuseuRover: Controle Remoto e Live Feed para Leo Rover",
-      description: "Esta aplicação oferece uma interface completa para controlar um Leo Rover remotamente, combinando o uso de um controle joystick para movimentação intuitiva e um live feed da câmera para navegação visual. Desenvolvido para facilitar visitas remotas a museus ou qualquer ambiente, ele proporciona uma experiência imersiva ao usuário.",
-      image: projectLEO,
-      status: "Concluído",
-      category: "Robótica Móvel",
-      technologies: ["Python", "Teleop", "ROS"]
-    },
-    {
-      id: 3,
-      title: "VR Gesture Teleop",
-      description: "Teleoperação via gestos em realidade virtual. O repositório conecta um projeto Unity que capta gestos VR a um módulo ROS2 que recebe e processa esses dados.",
-      image: ProjectVr,
-      status: "Concluído",
-      category: "Teleoperação VR",
-      technologies: ["Unity", "ROS2", "Gestos VR", "Teleoperação"]
-    },
-    { id: 4,
-      title: "luva-leorover-controle",
-      description: "Código em arduino que possibilita o controle do robô Leo Rover com a gesticulação dos dedos com a luva Hiwonder.",
-      image: projectChatbot,
-      status: "Em Andamento",
-      category: "Utilização de Luvas Hiwonder para Controle de Robôs",
-      technologies: ["Arduino", "Hiwonder", "Robótica"]
-    }
+import { TProject, listProjects } from "@/lib/projectService";
 
-  ];
+const FeaturedProjects = () => {
+    const [projects, setProjects] = useState<TProject[]>([]);
+
+    useEffect(() => {
+        setProjects(listProjects().slice(0, 3));
+    }, []);
+
 
   return (
     <section className="py-20 bg-background-light">
@@ -93,7 +60,7 @@ const FeaturedProjects = () => {
               <CardContent>
                 <div className="mb-4">
                   <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, index) => (
+                    {project.technologies?.map((tech, index) => (
                       <Badge key={index} variant="secondary" className="text-xs">
                         {tech}
                       </Badge>

@@ -14,9 +14,11 @@ const Header = () => {
     { name: "Publicações", href: "/publicacoes" },
     { name: "Notícias", href: "/noticias" },
     { name: "Contato", href: "/contato" },
+    // Adicione esta linha para o link de Admin
+    { name: "Admin", href: "/admin" },
   ];
 
-  const isActive = (href: string) => location.pathname === href;
+  const isActive = (href: string) => location.pathname.startsWith(href) && href !== '/';
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-labind-primary-dark shadow-lg">
@@ -42,11 +44,11 @@ const Header = () => {
                 key={item.name}
                 to={item.href}
                 className={`text-white hover:text-labind-primary-medium transition-colors relative ${
-                  isActive(item.href) ? "text-labind-primary-medium" : ""
+                  isActive(item.href) || (location.pathname === '/' && item.href === '/') ? "text-labind-primary-medium" : ""
                 }`}
               >
                 {item.name}
-                {isActive(item.href) && (
+                {(isActive(item.href) || (location.pathname === '/' && item.href === '/')) && (
                   <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-labind-primary-medium" />
                 )}
               </Link>
@@ -76,7 +78,7 @@ const Header = () => {
                   to={item.href}
                   onClick={() => setIsMenuOpen(false)}
                   className={`text-white hover:text-labind-primary-medium transition-colors px-4 py-2 rounded ${
-                    isActive(item.href) ? "bg-white/10 text-labind-primary-medium" : ""
+                    isActive(item.href) || (location.pathname === '/' && item.href === '/') ? "bg-white/10 text-labind-primary-medium" : ""
                   }`}
                 >
                   {item.name}

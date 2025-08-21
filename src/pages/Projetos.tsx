@@ -1,51 +1,20 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import projectChatbot from "@/assets/Leds.jpg";
-import projectLEO from "@/assets/LeoRover.jpeg";
-import ProjectVr from "@/assets/MetaVr.jpeg";
+import { TProject, listProjects } from "@/lib/projectService";
 
-// ...existing code...
-const projects = [
-  {
-    id: 1,
-    title: "Inteligência Artificial Aplicada",
-    description: "Desenvolvimento de algoritmos de IA para otimização de processos industriais e manutenção preditiva.",
-    image: projectChatbot,
-    status: "Em Andamento",
-    category: "Inteligência Artificial",
-    technologies: ["Python", "TensorFlow", "IoT"],
-    githubUrl: "https://github.com/Laboratorio-de-Informatica-Industrial/astroNAOta-chatbot"
-  },
-  {
-    id: 2,
-    title: "Sistemas Embarcados",
-    description: "Criação de soluções embarcadas para controle e monitoramento de equipamentos industriais.",
-    image: projectLEO,
-    status: "Concluído",
-    category: "Sistemas Embarcados",
-    technologies: ["C++", "Arduino", "ESP32"],
-    githubUrl: "https://github.com/Laboratorio-de-Informatica-Industrial/astroNAOta-chatbot"
-  },
-  {
-    id: 3,
-    title: "Automação Industrial",
-    description: "Implementação de sistemas de automação para aumentar a eficiência de linhas de produção.",
-    image: ProjectVr,
-    status: "Em Andamento",
-    category: "Automação",
-    technologies: ["PLC", "SCADA", "Modbus"],
-    githubUrl: "https://github.com/Laboratorio-de-Informatica-Industrial/astroNAOta-chatbot"
-  }
-];
-// ...existing code...
 
 const Projetos = () => {
-  // Remova os estados e funções relacionados ao README
+  const [projects, setProjects] = useState<TProject[]>([]);
+
+  useEffect(() => {
+    setProjects(listProjects());
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -132,4 +101,3 @@ const Projetos = () => {
 };
 
 export default Projetos;
-// ...existing code...
