@@ -9,14 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { addTeamMember, getTeamMemberById, updateTeamMember, TTeamMember } from "@/lib/teamService";
 import { toast } from "@/components/ui/use-toast";
 
@@ -92,7 +86,31 @@ const AdminTeamForm = () => {
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                   <FormField control={form.control} name="name" render={({ field }) => (<FormItem><FormLabel>Nome Completo</FormLabel><FormControl><Input placeholder="Nome do membro" {...field} /></FormControl><FormMessage /></FormItem>)} />
-                   <FormField control={form.control} name="role" render={({ field }) => (<FormItem><FormLabel>Função</FormLabel><FormControl><Input placeholder="Ex: Coordenador" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                   
+                  <FormField
+                    control={form.control}
+                    name="role"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Função</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Selecione a função" />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                <SelectItem value="Coordenador">Coordenador</SelectItem>
+                                <SelectItem value="Pesquisador">Pesquisador</SelectItem>
+                                <SelectItem value="Mestrando">Mestrando</SelectItem>
+                                <SelectItem value="Graduando">Graduando</SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
                    <FormField control={form.control} name="title" render={({ field }) => (<FormItem><FormLabel>Titulação</FormLabel><FormControl><Input placeholder="Ex: Doutor em Engenharia" {...field} /></FormControl><FormMessage /></FormItem>)} />
                   <FormField control={form.control} name="area_of_interest" render={({ field }) => (<FormItem><FormLabel>Área de Interesse</FormLabel><FormControl><Input placeholder="Ex: Inteligência Artificial" {...field} /></FormControl><FormMessage /></FormItem>)} />
                   
@@ -101,12 +119,14 @@ const AdminTeamForm = () => {
                     <FormControl>
                         <Input type="file" accept="image/*" onChange={handlePhotoChange} />
                     </FormControl>
+                     {form.watch("photo_url") && (
+                        <img src={form.watch("photo_url")} alt="Preview da Foto" className="w-32 h-32 object-cover mt-2 rounded-full border" />
+                    )}
                     <FormMessage />
                   </FormItem>
 
                   <FormField control={form.control} name="lattes_url" render={({ field }) => (<FormItem><FormLabel>Link do Lattes (Opcional)</FormLabel><FormControl><Input placeholder="http://lattes.cnpq.br/..." {...field} /></FormControl><FormMessage /></FormItem>)} />
                    <FormField control={form.control} name="linkedin_url" render={({ field }) => (<FormItem><FormLabel>Link do LinkedIn (Opcional)</FormLabel><FormControl><Input placeholder="https://linkedin.com/in/..." {...field} /></FormControl><FormMessage /></FormItem>)} />
-                   
                   <Button type="submit">{isEditing ? "Salvar Alterações" : "Salvar Membro"}</Button>
                 </form>
               </Form>

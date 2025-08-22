@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ThemeProvider } from "@/components/ThemeProvider"; // Importe o ThemeProvider
+import { ThemeProvider } from "@/components/ThemeProvider";
 import Index from "./pages/Index";
 import Projetos from "./pages/Projetos";
 import Equipe from "./pages/Equipe";
@@ -23,6 +23,7 @@ import AdminTeamForm from "./pages/AdminTeamForm";
 import NewsDetail from "./pages/NewsDetail";
 import AdminPublications from "./pages/AdminPublications";
 import AdminPublicationForm from "./pages/AdminPublicationForm";
+import AdminContact from "./pages/AdminContact"; // Importe a nova página
 
 const queryClient = new QueryClient();
 
@@ -57,6 +58,7 @@ const App = () => (
             <Route path="/admin/publicacoes" element={<AdminPublications />} />
             <Route path="/admin/publicacoes/novo" element={<AdminPublicationForm />} />
             <Route path="/admin/publicacoes/editar/:id" element={<AdminPublicationForm />} />
+            <Route path="/admin/contato" element={<AdminContact />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

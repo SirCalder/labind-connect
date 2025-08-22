@@ -1,7 +1,16 @@
+// src/components/layout/Footer.tsx
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, Phone, Instagram } from "lucide-react";
+import { getContactInfo, TContactInfo } from "@/lib/contactService";
 
 const Footer = () => {
+  const [contactInfo, setContactInfo] = useState<TContactInfo | null>(null);
+
+  useEffect(() => {
+    setContactInfo(getContactInfo());
+  }, []);
+
   const navigation = [
     { name: "Início", href: "/" },
     { name: "Projetos", href: "/projetos" },
@@ -10,6 +19,10 @@ const Footer = () => {
     { name: "Notícias", href: "/noticias" },
     { name: "Contato", href: "/contato" },
   ];
+
+  if (!contactInfo) {
+    return null; // ou um loader para evitar que o rodapé "pisque" ao carregar
+  }
 
   return (
     <footer className="bg-labind-primary-dark text-white">
@@ -58,29 +71,29 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin size={18} className="text-labind-primary-medium mt-0.5 flex-shrink-0" />
                 <div className="text-gray-300 text-sm">
-                  <p>R. Luiz Fernando Hastreiter, 180</p>
-                  <p>Centenário, São Bento do Sul - SC</p>
-                  <p>CEP: 89283-081</p>
+                  <p>{contactInfo.address_line1}</p>
+                  <p>{contactInfo.address_line2}</p>
+                  <p>{contactInfo.cep}</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-3">
                 <Mail size={18} className="text-labind-primary-medium flex-shrink-0" />
                 <a 
-                  href="mailto:labind@udesc.br" 
+                  href={`mailto:${contactInfo.email}`}
                   className="text-gray-300 hover:text-labind-primary-medium transition-colors text-sm"
                 >
-                  labind@udesc.br
+                  {contactInfo.email}
                 </a>
               </div>
               
               <div className="flex items-center space-x-3">
                 <Phone size={18} className="text-labind-primary-medium flex-shrink-0" />
                 <a 
-                  href="tel:+554932515454" 
+                  href={`tel:${contactInfo.phone.replace(/\D/g, '')}`}
                   className="text-gray-300 hover:text-labind-primary-medium transition-colors text-sm"
                 >
-                  (49) 3251-5454
+                  {contactInfo.phone}
                 </a>
               </div>
             </div>
@@ -90,18 +103,28 @@ const Footer = () => {
               <h4 className="font-medium mb-3">Siga-nos</h4>
               <div className="flex space-x-4">
                 <a 
-                  href="#" 
+                  href={contactInfo.linkedin_url}
+                  target="_blank" rel="noopener noreferrer"
                   className="text-gray-300 hover:text-labind-primary-medium transition-colors"
                   aria-label="LinkedIn do LABIND"
                 >
                   <Linkedin size={20} />
                 </a>
                 <a 
-                  href="#" 
+                  href={contactInfo.github_url}
+                  target="_blank" rel="noopener noreferrer"
                   className="text-gray-300 hover:text-labind-primary-medium transition-colors"
                   aria-label="GitHub do LABIND"
                 >
                   <Github size={20} />
+                </a>
+                <a 
+                  href={contactInfo.instagram_url}
+                  target="_blank" rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-labind-primary-medium transition-colors"
+                  aria-label="Instagram do LABIND"
+                >
+                  <Instagram size={20} />
                 </a>
               </div>
             </div>

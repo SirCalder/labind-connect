@@ -1,32 +1,40 @@
 import { useEffect, useState, useRef } from "react";
 import { FileText, Users, Trophy, Calendar } from "lucide-react";
+import { listProjects } from "@/lib/projectService";
+import { listPublications } from "@/lib/publicationService";
+import { listTeam } from "@/lib/teamService";
 
 const StatsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
+  // Busca os dados dos serviços
+  const projectsCount = listProjects().filter(p => p.status === 'Concluído').length;
+  const publicationsCount = listPublications().length;
+  const teamCount = listTeam().length;
+
   const stats = [
     {
       icon: Trophy,
-      number: 25,
+      number: projectsCount,
       label: "Projetos Concluídos",
       suffix: "+"
     },
     {
       icon: FileText,
-      number: 18,
+      number: publicationsCount,
       label: "Publicações Científicas",
       suffix: "+"
     },
     {
       icon: Users,
-      number: 45,
+      number: teamCount,
       label: "Membros Ativos",
       suffix: "+"
     },
     {
       icon: Calendar,
-      number: 8,
+      number: 3, // Este pode continuar fixo ou ser ajustado conforme necessário
       label: "Anos de Experiência",
       suffix: ""
     }
@@ -40,8 +48,14 @@ const StatsSection = () => {
       if (!isVisible) return;
       
       let start = 0;
-      const duration = 2000; // 2 seconds
-      const increment = target / (duration / 16); // 60fps
+      const duration = 2000; // 2 segundos
+      // Evita divisão por zero se o target for 0
+      const increment = target > 0 ? target / (duration / 16) : 0;
+
+      if (target === 0) {
+        setCount(0);
+        return;
+      }
 
       const timer = setInterval(() => {
         start += increment;
@@ -70,11 +84,16 @@ const StatsSection = () => {
       { threshold: 0.3 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
   }, []);
 
   return (
