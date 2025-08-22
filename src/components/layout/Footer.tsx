@@ -1,15 +1,39 @@
-// src/components/layout/Footer.tsx
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Github, Linkedin, Mail, MapPin, Phone, Instagram } from "lucide-react";
 import { getContactInfo, TContactInfo } from "@/lib/contactService";
+import { toast } from "@/components/ui/use-toast";
 
 const Footer = () => {
   const [contactInfo, setContactInfo] = useState<TContactInfo | null>(null);
+  const [clickCount, setClickCount] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setContactInfo(getContactInfo());
   }, []);
+
+  const handleLogoClick = () => {
+    const newClickCount = clickCount + 1;
+    setClickCount(newClickCount);
+
+    if (newClickCount >= 5) {
+      toast({ title: "Acesso ao painel de administração liberado!" });
+      navigate("/admin");
+      setClickCount(0);
+    } else if (newClickCount > 2) {
+      toast({
+        title: `Você está a ${5 - newClickCount} cliques de distância...`,
+        duration: 1500,
+      });
+    }
+    
+    setTimeout(() => {
+        if (newClickCount === clickCount + 1) { // Garante que só resete se não houver mais cliques
+            setClickCount(0);
+        }
+    }, 2000);
+  };
 
   const navigation = [
     { name: "Início", href: "/" },
@@ -21,16 +45,20 @@ const Footer = () => {
   ];
 
   if (!contactInfo) {
-    return null; // ou um loader para evitar que o rodapé "pisque" ao carregar
+    return null;
   }
 
   return (
     <footer className="bg-labind-primary-dark text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Coluna 1: Sobre o LABIND */}
+          {/* Coluna 1: Sobre o LABIND com gatilho de clique */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-3">
+            <div 
+              className="flex items-center space-x-3 cursor-pointer" 
+              onClick={handleLogoClick}
+              title="Um segredo pode estar aqui..."
+            >
               <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
                 <span className="text-labind-primary-dark font-bold text-xl">L</span>
               </div>

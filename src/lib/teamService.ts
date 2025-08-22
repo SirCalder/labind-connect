@@ -11,8 +11,10 @@ export type TTeamMember = {
     photo_url?: string;
     lattes_url?: string;
     linkedin_url?: string;
+    github_url?: string; // Novo campo
 };
 
+// ... (o resto do arquivo continua igual)
 const TEAM_KEY = 'labind-team';
 
 const getTeam = (): TTeamMember[] => {

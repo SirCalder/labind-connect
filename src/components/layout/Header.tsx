@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "./ThemeToggle"; // Importe o ThemeToggle
+import { ThemeToggle } from "./ThemeToggle";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,7 +16,8 @@ const Header = () => {
     { name: "Publicações", href: "/publicacoes" },
     { name: "Notícias", href: "/noticias" },
     { name: "Contato", href: "/contato" },
-    { name: "Admin", href: "/admin" },
+    // A linha abaixo foi removida
+    // { name: "Admin", href: "/admin" }, 
   ];
 
   const isActive = (href: string) => {
