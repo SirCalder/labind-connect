@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Linkedin, Mail } from "lucide-react";
+import { Linkedin, Github } from "lucide-react"; // Importe o ícone do Github
 import { Button } from "@/components/ui/button";
 import { TTeamMember, listTeam } from "@/lib/teamService";
 
@@ -61,6 +61,13 @@ const Equipe = () => {
                         <Button asChild variant="ghost" size="icon">
                            <a href={member.linkedin_url} target="_blank" rel="noopener noreferrer">
                             <Linkedin className="h-5 w-5 text-gray-500 hover:text-labind-primary-dark" />
+                          </a>
+                        </Button>
+                      )}
+                      {member.github_url && (
+                        <Button asChild variant="ghost" size="icon">
+                           <a href={member.github_url} target="_blank" rel="noopener noreferrer">
+                            <Github className="h-5 w-5 text-gray-500 hover:text-labind-primary-dark" />
                           </a>
                         </Button>
                       )}

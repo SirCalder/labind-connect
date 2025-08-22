@@ -11,6 +11,7 @@ export const team: TTeamMember[] = [
         photo_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000",
         lattes_url: "#",
         linkedin_url: "#",
+        github_url: "#", // Novo campo
     },
     {
         id: "2",
@@ -21,5 +22,6 @@ export const team: TTeamMember[] = [
         photo_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000",
         lattes_url: "#",
         linkedin_url: "#",
+        github_url: "#", // Novo campo
     },
 ];
