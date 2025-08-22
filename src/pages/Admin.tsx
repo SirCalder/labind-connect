@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, Settings } from "lucide-react";
 
 const Admin = () => {
   return (
@@ -23,59 +23,28 @@ const Admin = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card>
-              <CardHeader>
-                <CardTitle>Projetos</CardTitle>
-                <CardDescription>Adicionar, editar ou remover projetos.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button asChild className="w-full">
-                  <Link to="/admin/projetos">
-                    <PlusCircle className="mr-2 h-4 w-4" /> Gerenciar Projetos
-                  </Link>
-                </Button>
-              </CardContent>
+              <CardHeader><CardTitle>Projetos</CardTitle><CardDescription>Adicionar, editar ou remover projetos.</CardDescription></CardHeader>
+              <CardContent><Button asChild className="w-full"><Link to="/admin/projetos"><PlusCircle className="mr-2 h-4 w-4" /> Gerenciar Projetos</Link></Button></CardContent>
             </Card>
 
             <Card>
-              <CardHeader>
-                <CardTitle>Notícias</CardTitle>
-                <CardDescription>Adicionar, editar ou remover notícias.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button asChild className="w-full">
-                  <Link to="/admin/noticias">
-                    <PlusCircle className="mr-2 h-4 w-4" /> Gerenciar Notícias
-                  </Link>
-                </Button>
-              </CardContent>
+              <CardHeader><CardTitle>Notícias</CardTitle><CardDescription>Adicionar, editar ou remover notícias.</CardDescription></CardHeader>
+              <CardContent><Button asChild className="w-full"><Link to="/admin/noticias"><PlusCircle className="mr-2 h-4 w-4" /> Gerenciar Notícias</Link></Button></CardContent>
             </Card>
 
             <Card>
-              <CardHeader>
-                <CardTitle>Membros</CardTitle>
-                <CardDescription>Adicionar, editar ou remover membros da equipe.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button asChild className="w-full">
-                  <Link to="/admin/equipe">
-                    <PlusCircle className="mr-2 h-4 w-4" /> Gerenciar Membros
-                  </Link>
-                </Button>
-              </CardContent>
+              <CardHeader><CardTitle>Membros</CardTitle><CardDescription>Adicionar, editar ou remover membros da equipe.</CardDescription></CardHeader>
+              <CardContent><Button asChild className="w-full"><Link to="/admin/equipe"><PlusCircle className="mr-2 h-4 w-4" /> Gerenciar Membros</Link></Button></CardContent>
             </Card>
 
             <Card>
-              <CardHeader>
-                <CardTitle>Publicações</CardTitle>
-                <CardDescription>Adicionar, editar ou remover publicações.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button asChild className="w-full">
-                  <Link to="/admin/publicacoes">
-                    <PlusCircle className="mr-2 h-4 w-4" /> Gerenciar Publicações
-                  </Link>
-                </Button>
-              </CardContent>
+              <CardHeader><CardTitle>Publicações</CardTitle><CardDescription>Adicionar, editar ou remover publicações.</CardDescription></CardHeader>
+              <CardContent><Button asChild className="w-full"><Link to="/admin/publicacoes"><PlusCircle className="mr-2 h-4 w-4" /> Gerenciar Publicações</Link></Button></CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader><CardTitle>Contato</CardTitle><CardDescription>Editar informações de contato do site.</CardDescription></CardHeader>
+              <CardContent><Button asChild className="w-full" variant="outline"><Link to="/admin/contato"><Settings className="mr-2 h-4 w-4" /> Editar Contato</Link></Button></CardContent>
             </Card>
           </div>
         </div>

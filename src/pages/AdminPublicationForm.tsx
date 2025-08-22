@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { addPublication, getPublicationById, updatePublication, TPublication } from "@/lib/publicationService";
 import { toast } from "@/components/ui/use-toast";
@@ -84,7 +85,32 @@ const AdminPublicationForm = () => {
                   <FormField control={form.control} name="year" render={({ field }) => (<FormItem><FormLabel>Ano</FormLabel><FormControl><Input type="number" placeholder="Ano de publicação" {...field} /></FormControl><FormMessage /></FormItem>)} />
                   <FormField control={form.control} name="venue" render={({ field }) => (<FormItem><FormLabel>Local de Publicação</FormLabel><FormControl><Input placeholder="Ex: Revista Brasileira de..." {...field} /></FormControl><FormMessage /></FormItem>)} />
                   <FormField control={form.control} name="doi" render={({ field }) => (<FormItem><FormLabel>DOI (Opcional)</FormLabel><FormControl><Input placeholder="10.1234/..." {...field} /></FormControl><FormMessage /></FormItem>)} />
-                  <FormField control={form.control} name="type" render={({ field }) => (<FormItem><FormLabel>Tipo</FormLabel><FormControl><Input placeholder="Ex: Artigo" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                  
+                  <FormField
+                    control={form.control}
+                    name="type"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Tipo de Publicação</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Selecione o tipo" />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                <SelectItem value="Artigo">Artigo</SelectItem>
+                                <SelectItem value="Capítulo de Livro">Capítulo de Livro</SelectItem>
+                                <SelectItem value="Congresso">Congresso</SelectItem>
+                                <SelectItem value="Tese">Tese</SelectItem>
+                                <SelectItem value="Dissertação">Dissertação</SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
                   <Button type="submit">{isEditing ? "Salvar Alterações" : "Salvar Publicação"}</Button>
                 </form>
               </Form>
