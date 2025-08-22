@@ -1,7 +1,9 @@
+// src/components/layout/Header.tsx
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "./ThemeToggle"; // Importe o ThemeToggle
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,11 +16,15 @@ const Header = () => {
     { name: "Publicações", href: "/publicacoes" },
     { name: "Notícias", href: "/noticias" },
     { name: "Contato", href: "/contato" },
-    // Adicione esta linha para o link de Admin
     { name: "Admin", href: "/admin" },
   ];
 
-  const isActive = (href: string) => location.pathname.startsWith(href) && href !== '/';
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return location.pathname === href;
+    }
+    return location.pathname.startsWith(href);
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-labind-primary-dark shadow-lg">
@@ -38,25 +44,23 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-1">
             {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`text-white hover:text-labind-primary-medium transition-colors relative ${
-                  isActive(item.href) || (location.pathname === '/' && item.href === '/') ? "text-labind-primary-medium" : ""
-                }`}
-              >
-                {item.name}
-                {(isActive(item.href) || (location.pathname === '/' && item.href === '/')) && (
-                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-labind-primary-medium" />
-                )}
-              </Link>
+              <Button key={item.name} asChild variant="ghost" className={`text-white hover:bg-white/10 hover:text-white ${isActive(item.href) ? 'bg-white/10' : ''}`}>
+                <Link
+                  to={item.href}
+                  className="relative"
+                >
+                  {item.name}
+                </Link>
+              </Button>
             ))}
+            <ThemeToggle />
           </nav>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center">
+            <ThemeToggle />
             <Button
               variant="ghost"
               size="icon"
@@ -78,7 +82,7 @@ const Header = () => {
                   to={item.href}
                   onClick={() => setIsMenuOpen(false)}
                   className={`text-white hover:text-labind-primary-medium transition-colors px-4 py-2 rounded ${
-                    isActive(item.href) || (location.pathname === '/' && item.href === '/') ? "bg-white/10 text-labind-primary-medium" : ""
+                    isActive(item.href) ? "bg-white/10 text-labind-primary-medium" : ""
                   }`}
                 >
                   {item.name}

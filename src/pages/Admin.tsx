@@ -1,3 +1,4 @@
+// src/pages/Admin.tsx
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Link } from "react-router-dom";
@@ -21,7 +22,6 @@ const Admin = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Gerenciar Projetos */}
             <Card>
               <CardHeader>
                 <CardTitle>Projetos</CardTitle>
@@ -36,7 +36,6 @@ const Admin = () => {
               </CardContent>
             </Card>
 
-            {/* Gerenciar Notícias */}
             <Card>
               <CardHeader>
                 <CardTitle>Notícias</CardTitle>
@@ -51,7 +50,6 @@ const Admin = () => {
               </CardContent>
             </Card>
 
-            {/* Gerenciar Membros */}
             <Card>
               <CardHeader>
                 <CardTitle>Membros</CardTitle>
@@ -61,6 +59,20 @@ const Admin = () => {
                 <Button asChild className="w-full">
                   <Link to="/admin/equipe">
                     <PlusCircle className="mr-2 h-4 w-4" /> Gerenciar Membros
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Publicações</CardTitle>
+                <CardDescription>Adicionar, editar ou remover publicações.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button asChild className="w-full">
+                  <Link to="/admin/publicacoes">
+                    <PlusCircle className="mr-2 h-4 w-4" /> Gerenciar Publicações
                   </Link>
                 </Button>
               </CardContent>

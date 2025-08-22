@@ -2,7 +2,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,8 +26,8 @@ const teamMemberSchema = z.object({
   title: z.string().min(1, { message: "A titulação é obrigatória." }),
   area_of_interest: z.string().min(1, { message: "A área de interesse é obrigatória." }),
   photo_url: z.string().optional(),
-  lattes_url: z.string().url().optional(),
-  linkedin_url: z.string().url().optional(),
+  lattes_url: z.string().url({ message: "URL inválida" }).optional().or(z.literal('')),
+  linkedin_url: z.string().url({ message: "URL inválida" }).optional().or(z.literal('')),
 });
 
 const AdminTeamForm = () => {
@@ -57,6 +57,17 @@ const AdminTeamForm = () => {
         }
     }, [id, isEditing, form]);
 
+    const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                form.setValue("photo_url", reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     function onSubmit(values: z.infer<typeof teamMemberSchema>) {
         if (isEditing) {
             updateTeamMember(id, values as Omit<TTeamMember, 'id'>);
@@ -84,9 +95,18 @@ const AdminTeamForm = () => {
                    <FormField control={form.control} name="role" render={({ field }) => (<FormItem><FormLabel>Função</FormLabel><FormControl><Input placeholder="Ex: Coordenador" {...field} /></FormControl><FormMessage /></FormItem>)} />
                    <FormField control={form.control} name="title" render={({ field }) => (<FormItem><FormLabel>Titulação</FormLabel><FormControl><Input placeholder="Ex: Doutor em Engenharia" {...field} /></FormControl><FormMessage /></FormItem>)} />
                   <FormField control={form.control} name="area_of_interest" render={({ field }) => (<FormItem><FormLabel>Área de Interesse</FormLabel><FormControl><Input placeholder="Ex: Inteligência Artificial" {...field} /></FormControl><FormMessage /></FormItem>)} />
-                  <FormField control={form.control} name="photo_url" render={({ field }) => (<FormItem><FormLabel>URL da Foto (Opcional)</FormLabel><FormControl><Input placeholder="https://..." {...field} /></FormControl><FormMessage /></FormItem>)} />
+                  
+                  <FormItem>
+                    <FormLabel>Foto do Membro</FormLabel>
+                    <FormControl>
+                        <Input type="file" accept="image/*" onChange={handlePhotoChange} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+
                   <FormField control={form.control} name="lattes_url" render={({ field }) => (<FormItem><FormLabel>Link do Lattes (Opcional)</FormLabel><FormControl><Input placeholder="http://lattes.cnpq.br/..." {...field} /></FormControl><FormMessage /></FormItem>)} />
                    <FormField control={form.control} name="linkedin_url" render={({ field }) => (<FormItem><FormLabel>Link do LinkedIn (Opcional)</FormLabel><FormControl><Input placeholder="https://linkedin.com/in/..." {...field} /></FormControl><FormMessage /></FormItem>)} />
+                   
                   <Button type="submit">{isEditing ? "Salvar Alterações" : "Salvar Membro"}</Button>
                 </form>
               </Form>
