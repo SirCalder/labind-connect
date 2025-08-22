@@ -37,16 +37,29 @@ export const listNews = (): TNews[] => {
     return getNews();
 };
 
+export const getNewsById = (id: string): TNews | undefined => {
+    return getNews().find(n => n.id === id);
+};
+
 export const addNews = (newsItem: Omit<TNews, 'id'>) => {
     const news = getNews();
     const newNewsItem: TNews = {
         ...newsItem,
         id: new Date().getTime().toString()
     };
-    const updatedNews = [...news, newNewsItem];
+    const updatedNews = [newNewsItem, ...news]; // Adiciona no início
     saveNews(updatedNews);
     return newNewsItem;
 };
+
+export const updateNews = (id: string, updatedNewsData: Omit<TNews, 'id'>) => {
+    const news = getNews();
+    const updatedNews = news.map(n =>
+        n.id === id ? { ...n, ...updatedNewsData, id } : n
+    );
+    saveNews(updatedNews);
+};
+
 
 export const deleteNews = (id: string) => {
     const news = getNews();

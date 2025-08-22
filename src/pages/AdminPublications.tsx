@@ -1,23 +1,23 @@
-// src/pages/AdminNews.tsx
+// src/pages/AdminPublications.tsx
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { PlusCircle, Trash2, Edit } from "lucide-react";
-import { TNews, listNews, deleteNews } from "@/lib/newsService";
+import { TPublication, listPublications, deletePublication } from "@/lib/publicationService";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
-const AdminNews = () => {
-  const [news, setNews] = useState<TNews[]>([]);
+const AdminPublications = () => {
+  const [publications, setPublications] = useState<TPublication[]>([]);
 
   useEffect(() => {
-    setNews(listNews());
+    setPublications(listPublications());
   }, []);
 
   const handleDelete = (id: string) => {
-    deleteNews(id);
-    setNews(listNews());
+    deletePublication(id);
+    setPublications(listPublications());
   }
 
   return (
@@ -27,32 +27,32 @@ const AdminNews = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="flex justify-between items-center mb-8">
             <h1 className="font-heading font-bold text-3xl md:text-4xl text-foreground">
-              Gerenciar Notícias
+              Gerenciar Publicações
             </h1>
             <Button asChild>
-              <Link to="/admin/noticias/novo">
-                <PlusCircle className="mr-2 h-4 w-4" /> Adicionar Notícia
+              <Link to="/admin/publicacoes/novo">
+                <PlusCircle className="mr-2 h-4 w-4" /> Adicionar Publicação
               </Link>
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {news.map((newsItem) => (
-                <Card key={newsItem.id}>
+          <div className="space-y-4">
+            {publications.map((pub) => (
+                <Card key={pub.id}>
                     <CardHeader>
-                        <CardTitle className="line-clamp-2">{newsItem.title}</CardTitle>
-                        <CardDescription>{new Date(newsItem.published_date).toLocaleDateString('pt-BR', {timeZone: 'UTC'})}</CardDescription>
+                        <CardTitle className="text-lg">{pub.title}</CardTitle>
+                        <CardDescription>{pub.venue}, {pub.year}</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="flex justify-between items-center">
-                            <p className="text-sm text-gray-500 line-clamp-2">{newsItem.summary}</p>
+                            <p className="text-sm text-gray-500 line-clamp-1">{pub.authors.join(", ")}</p>
                             <div className="flex gap-2">
                                 <Button asChild variant="outline" size="icon">
-                                    <Link to={`/admin/noticias/editar/${newsItem.id}`}>
+                                    <Link to={`/admin/publicacoes/editar/${pub.id}`}>
                                         <Edit className="h-4 w-4" />
                                     </Link>
                                 </Button>
-                                <Button variant="destructive" size="icon" onClick={() => handleDelete(newsItem.id)}>
+                                <Button variant="destructive" size="icon" onClick={() => handleDelete(pub.id)}>
                                     <Trash2 className="h-4 w-4" />
                                 </Button>
                             </div>
@@ -69,4 +69,4 @@ const AdminNews = () => {
   );
 };
 
-export default AdminNews;
+export default AdminPublications;
