@@ -4,17 +4,17 @@ import { team as initialTeam } from "@/data/team";
 export type TTeamMember = {
     id: string;
     name: string;
-    role: "Coordenador" | "Pesquisador" | "Mestrando" | "Graduando";
+    role: "Professor" | "Colaborador" | "Aluno"; // Função principal
     title: string;
+    student_type?: "Voluntário" | "Bolsista"; // Apenas para Alunos
+    scholarship_type?: "Apoio discente" | "Iniciação científica" | "Extensão" | "Ensino"; // Apenas para Bolsistas
     area_of_interest: string;
-    bio?: string;
     photo_url?: string;
     lattes_url?: string;
     linkedin_url?: string;
-    github_url?: string; // Novo campo
+    github_url?: string;
 };
 
-// ... (o resto do arquivo continua igual)
 const TEAM_KEY = 'labind-team';
 
 const getTeam = (): TTeamMember[] => {
