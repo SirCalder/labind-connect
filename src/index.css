@@ -12,6 +12,13 @@
     --labind-primary-medium: 123 27% 42%; /* Verde Médio #579859 */
     --labind-accent-red: 5 56% 51%; /* Vermelho Vivo #c9443b */
     --labind-accent-red-dark: 356 59% 41%; /* Vermelho Escuro #a72b2e */
+
+    /* Novas Cores para Badges de Funções */
+    --badge-professor: 217 91% 60%; /* Azul */
+    --badge-colaborador: 25 100% 21.1%; /* Laranja */
+    --badge-aluno: 0 76% 12.8%;     /* Verde */
+    --badge-bolsista: 262 71.3% 21.4%;  /* Roxo/Rosa */
+
     
     /* Cores de Sistema */
     --background: 0 0% 100%;

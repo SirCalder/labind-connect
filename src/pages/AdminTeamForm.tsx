@@ -1,4 +1,3 @@
-// src/pages/AdminTeamForm.tsx
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,13 +15,15 @@ import { toast } from "@/components/ui/use-toast";
 
 const teamMemberSchema = z.object({
   name: z.string().min(1, { message: "O nome é obrigatório." }),
-  role: z.enum(["Coordenador", "Pesquisador", "Mestrando", "Graduando"]),
+  role: z.enum(["Professor", "Colaborador", "Aluno"]),
+  student_type: z.enum(["Voluntário", "Bolsista"]).optional(),
+  scholarship_type: z.enum(["Apoio discente", "Iniciação científica", "Extensão", "Ensino"]).optional(),
   title: z.string().min(1, { message: "A titulação é obrigatória." }),
   area_of_interest: z.string().min(1, { message: "A área de interesse é obrigatória." }),
   photo_url: z.string().optional(),
   lattes_url: z.string().url({ message: "URL inválida" }).optional().or(z.literal('')),
   linkedin_url: z.string().url({ message: "URL inválida" }).optional().or(z.literal('')),
-  github_url: z.string().url({ message: "URL inválida" }).optional().or(z.literal('')), // Novo campo
+  github_url: z.string().url({ message: "URL inválida" }).optional().or(z.literal('')),
 });
 
 const AdminTeamForm = () => {
@@ -34,15 +35,14 @@ const AdminTeamForm = () => {
         resolver: zodResolver(teamMemberSchema),
         defaultValues: {
             name: "",
-            role: "Graduando",
+            role: "Aluno",
             title: "",
             area_of_interest: "",
-            photo_url: "",
-            lattes_url: "",
-            linkedin_url: "",
-            github_url: "", // Novo campo
         },
     });
+
+    const role = form.watch("role");
+    const studentType = form.watch("student_type");
 
     useEffect(() => {
         if (isEditing) {
@@ -57,15 +57,21 @@ const AdminTeamForm = () => {
         const file = event.target.files?.[0];
         if (file) {
             const reader = new FileReader();
-            reader.onloadend = () => {
-                form.setValue("photo_url", reader.result as string);
-            };
+            reader.onloadend = () => form.setValue("photo_url", reader.result as string);
             reader.readAsDataURL(file);
         }
     };
 
     function onSubmit(values: z.infer<typeof teamMemberSchema>) {
-        if (isEditing) {
+        // Limpa os campos condicionais se não forem aplicáveis
+        if (values.role !== 'Aluno') {
+            values.student_type = undefined;
+            values.scholarship_type = undefined;
+        } else if (values.student_type !== 'Bolsista') {
+            values.scholarship_type = undefined;
+        }
+
+        if (isEditing && id) {
             updateTeamMember(id, values as Omit<TTeamMember, 'id'>);
             toast({ title: "Membro atualizado com sucesso!" });
         } else {
@@ -87,11 +93,68 @@ const AdminTeamForm = () => {
             <CardContent>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                  {/* ... (outros campos) ... */}
-                  <FormField control={form.control} name="lattes_url" render={({ field }) => (<FormItem><FormLabel>Link do Lattes (Opcional)</FormLabel><FormControl><Input placeholder="http://lattes.cnpq.br/..." {...field} /></FormControl><FormMessage /></FormItem>)} />
-                  <FormField control={form.control} name="linkedin_url" render={({ field }) => (<FormItem><FormLabel>Link do LinkedIn (Opcional)</FormLabel><FormControl><Input placeholder="https://linkedin.com/in/..." {...field} /></FormControl><FormMessage /></FormItem>)} />
-                  <FormField control={form.control} name="github_url" render={({ field }) => (<FormItem><FormLabel>Link do GitHub (Opcional)</FormLabel><FormControl><Input placeholder="https://github.com/..." {...field} /></FormControl><FormMessage /></FormItem>)} />
+                  <FormField control={form.control} name="name" render={({ field }) => ( <FormItem><FormLabel>Nome Completo</FormLabel><FormControl><Input placeholder="Nome do membro" {...field} /></FormControl><FormMessage /></FormItem> )} />
                   
+                  <FormField control={form.control} name="role" render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Função Principal</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl><SelectTrigger><SelectValue placeholder="Selecione a função principal" /></SelectTrigger></FormControl>
+                        <SelectContent>
+                          <SelectItem value="Professor">Professor</SelectItem>
+                          <SelectItem value="Colaborador">Colaborador</SelectItem>
+                          <SelectItem value="Aluno">Aluno</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+
+                  {role === 'Aluno' && (
+                    <FormField control={form.control} name="student_type" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Tipo de Aluno</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl><SelectTrigger><SelectValue placeholder="Selecione o tipo de aluno" /></SelectTrigger></FormControl>
+                          <SelectContent>
+                            <SelectItem value="Voluntário">Voluntário</SelectItem>
+                            <SelectItem value="Bolsista">Bolsista</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                  )}
+
+                  {role === 'Aluno' && studentType === 'Bolsista' && (
+                    <FormField control={form.control} name="scholarship_type" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Tipo de Bolsa</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl><SelectTrigger><SelectValue placeholder="Selecione o tipo de bolsa" /></SelectTrigger></FormControl>
+                          <SelectContent>
+                            <SelectItem value="Apoio discente">Apoio Discente</SelectItem>
+                            <SelectItem value="Iniciação científica">Iniciação Científica</SelectItem>
+                            <SelectItem value="Extensão">Extensão</SelectItem>
+                            <SelectItem value="Ensino">Ensino</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                  )}
+
+                  <FormField control={form.control} name="title" render={({ field }) => ( <FormItem><FormLabel>Titulação</FormLabel><FormControl><Input placeholder="Ex: Doutor em Engenharia Elétrica" {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="area_of_interest" render={({ field }) => ( <FormItem><FormLabel>Área de Interesse</FormLabel><FormControl><Input placeholder="Ex: Inteligência Artificial" {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormItem>
+                    <FormLabel>Foto do Membro</FormLabel>
+                    <FormControl><Input type="file" accept="image/*" onChange={handlePhotoChange} /></FormControl>
+                    {form.watch("photo_url") && ( <img src={form.watch("photo_url")} alt="Preview" className="w-32 h-32 object-cover mt-2 rounded-full border" /> )}
+                    <FormMessage />
+                  </FormItem>
+                  <FormField control={form.control} name="lattes_url" render={({ field }) => ( <FormItem><FormLabel>Link do Lattes (Opcional)</FormLabel><FormControl><Input placeholder="http://lattes.cnpq.br/..." {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="linkedin_url" render={({ field }) => ( <FormItem><FormLabel>Link do LinkedIn (Opcional)</FormLabel><FormControl><Input placeholder="https://linkedin.com/in/..." {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="github_url" render={({ field }) => ( <FormItem><FormLabel>Link do GitHub (Opcional)</FormLabel><FormControl><Input placeholder="https://github.com/..." {...field} /></FormControl><FormMessage /></FormItem> )} />
                   <Button type="submit">{isEditing ? "Salvar Alterações" : "Salvar Membro"}</Button>
                 </form>
               </Form>
